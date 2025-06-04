@@ -58,8 +58,13 @@ export function Hero(hero: Hero & { eventsKey: GeneralEvents["ingestKey"] }) {
         </div>
         <div>
           <div className="mx-auto flex min-h-[288px] max-w-[80vw] shrink-0 flex-col items-center justify-center gap-2 px-2 py-4 sm:px-16 lg:px-24">
-            <h1 className="max-w-(--breakpoint-lg) text-pretty text-center text-[clamp(32px,7vw,64px)] font-medium leading-none tracking-[-1.44px] text-text-primary dark:text-dark-text-primary md:tracking-[-2.16px]">
-              {hero.title}
+            <h1 className="max-w-4xl text-center text-[clamp(32px,7vw,64px)] font-extrabold leading-tight tracking-tight text-blue-900 dark:text-blue-200 md:tracking-[-2.16px]">
+              {(() => {
+                // On cherche à mettre en valeur le dernier mot (ex: "Alternative")
+                const words = hero.title.split(' ');
+                const lastWord = words.pop();
+                return <>{words.join(' ')} <span className="bg-blue-700 text-white px-4 py-1 rounded">{lastWord}</span></>;
+              })()}
             </h1>
             <h2 className="text-md max-w-2xl text-pretty text-center text-text-tertiary dark:text-dark-text-tertiary md:text-lg">
               {hero.subtitle}
@@ -67,16 +72,16 @@ export function Hero(hero: Hero & { eventsKey: GeneralEvents["ingestKey"] }) {
           </div>
         </div>
         <div className="flex items-start justify-center px-8 sm:px-24">
-          <div className="md:max-w-[392px]! flex w-full max-w-[80vw] flex-col items-center justify-start">
+          <div className="md:max-w-[392px]! flex w-full max-w-[80vw] flex-col items-center justify-start mt-6">
             {hero.actions?.map(({ href, label, type, _id }) => (
               <TrackedButtonLink
                 key={_id}
                 analyticsKey={hero.eventsKey}
                 className={clsx(
-                  "h-14! text-base! flex-col items-center justify-center rounded-none",
+                  "h-14 text-base flex items-center justify-center rounded-full font-semibold transition-colors duration-150 shadow-lg",
                   type === "primary"
-                    ? "flex w-full"
-                    : "max-w-sm:border-x-0! border-x! border-y-0! bg-transparent! hover:bg-black/5! dark:hover:bg-white/5! flex w-full border-border backdrop-blur-xl transition-colors duration-150 dark:border-dark-border",
+                    ? "w-full bg-blue-700 text-white hover:bg-blue-800"
+                    : "w-full border border-blue-700 text-blue-700 bg-white hover:bg-blue-50"
                 )}
                 href={href}
                 intent={type}
