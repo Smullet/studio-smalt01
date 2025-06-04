@@ -59,12 +59,18 @@ export function Hero(hero: Hero & { eventsKey: GeneralEvents["ingestKey"] }) {
         <div>
           <div className="mx-auto flex min-h-[288px] max-w-[80vw] shrink-0 flex-col items-center justify-center gap-2 px-2 py-4 sm:px-16 lg:px-24">
             <h1 className="max-w-4xl text-center text-[clamp(32px,7vw,64px)] font-extrabold leading-tight tracking-tight text-blue-900 dark:text-blue-200 md:tracking-[-2.16px]">
-              {(() => {
-                // On cherche à mettre en valeur le dernier mot (ex: "Alternative")
-                const words = hero.title.split(' ');
-                const lastWord = words.pop();
-                return <>{words.join(' ')} <span className="bg-blue-700 text-white px-4 py-1 rounded">{lastWord}</span></>;
-              })()}
+              {hero.title
+                ? (() => {
+                    const words = hero.title.split(' ');
+                    const lastWord = words.pop();
+                    return (
+                      <>
+                        {words.join(' ')}{" "}
+                        <span className="bg-blue-700 text-white px-4 py-1 rounded">{lastWord}</span>
+                      </>
+                    );
+                  })()
+                : null}
             </h1>
             <h2 className="text-md max-w-2xl text-pretty text-center text-text-tertiary dark:text-dark-text-tertiary md:text-lg">
               {hero.subtitle}
